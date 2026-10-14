@@ -1,0 +1,24 @@
+# Local development database for COMP 3123 Assignment 1
+# Start:  docker compose up -d
+# Stop:   docker compose down
+# Reset (deletes all data): docker compose down -v
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: comp3123-mongo
+    restart: unless-stopped
+    ports:
+      # Bound to localhost only, so the unauthenticated dev database
+      # is not reachable from other machines on your network
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo-data:
