@@ -22,7 +22,7 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "echo \"Tests are in the Postman collection (see README)\" && exit 0",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
