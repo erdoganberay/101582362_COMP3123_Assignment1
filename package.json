@@ -23,7 +23,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "dev" : "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
