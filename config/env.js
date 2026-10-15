@@ -30,6 +30,10 @@ const env = {
 	jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1h',
 };
 
-env.isProduction = env.nodeEnv === 'production';
+if (env.nodeEnv === 'production') {
+	env.isProduction = true;
+} else {
+	env.isProduction = false;
+}
 
 module.exports = Object.freeze(env);
