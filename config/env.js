@@ -1,3 +1,22 @@
+/*
+ * config/env.js
+ *
+ * If .env exists,loads
+ * the env variables from it
+ * otherwise variables injected from the platform
+ *
+ * Usage:
+ * const env = require('../config/env');
+ *
+ * env.port          // 3000
+ * env.mongoUri      // MongoDB connection string
+ * env.jwtSecret     // secret used to sign JWTs
+ * env.jwtExpiresIn  // e.g. '1h'
+ * env.nodeEnv       // 'development' | 'production'
+ * env.isProduction  // true | false
+ */ 
+
+
 const path = require('path')
 const dotenv = require('dotenv')
 

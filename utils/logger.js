@@ -1,3 +1,19 @@
+/*
+ * utils/logger.js
+ *
+ * Writes timestamped JSON logs to:
+ * 	logs/app.log    - info, warn and error
+ * 	logs/error.log  - error only
+ * 
+ * Usage:
+ * const logger = require('../utils/logger');
+ *
+ * logger.info('Server started on port 3000');
+ * logger.warn('Login failed', { identifier: 'beray', ip: req.ip });
+ * logger.error('Database connection failed', err);
+ */
+
+
 const path = require('path')
 const winston = require('winston')
 const env = require('../config/env')
