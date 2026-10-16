@@ -1,0 +1,53 @@
+# Local development stack for COMP 3123 Assignment 1
+# Start:  docker compose up --build   (add -d to run in the background)
+# Logs:   docker compose logs -f api
+# Stop:   docker compose down
+# Reset (deletes all data): docker compose down -v
+
+services:
+  api:
+    build:
+      context: .
+      target: dev
+    container_name: comp3123-api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Inside Docker, "mongo" (the service name) is the database host, not 127.0.0.1
+      MONGODB_URI: mongodb://mongo:27017/comp3123_assignment1
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      # Mount the source code so nodemon restarts on every save
+      - .:/app
+      # Keep the container's own node_modules
+      - /app/node_modules
+    depends_on:
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      # Calls our own GET /health endpoint
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  mongo:
+    image: mongo:7
+    container_name: comp3123-mongo
+    restart: unless-stopped
+    ports:
+      # Localhost only, so the unauthenticated dev database is not reachable
+      # from other machines; kept so Compass can still connect
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo-data:
