@@ -10,6 +10,8 @@
  *     -> throws AppError 409 if the username or email is taken
  */
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const env = require('../config/env')
 const User = require('../models/User')
 const AppError = require('../utils/AppError')
 
@@ -29,4 +31,17 @@ const signup = async ({ username, email, password }) => {
 	return user
 }
 
-module.exports = { signup }
+const login = async ({ username, email, password }) => {
+	const query = email ? { email } : { username }
+	const user = await User.findOne(query).select('+password')
+
+	const passwordOk = user ? await bcrypt.compare(password, user.password) : false
+	if (!passwordOk) {
+		throw new AppError('Invalid credentials', 401)
+	}
+
+	const token = jwt.sign({ sub: user.id }, env.jwtSecret, { expiresIn: env.jwtExpiresIn })
+	return { token, user }
+}
+
+module.exports = { signup, login }

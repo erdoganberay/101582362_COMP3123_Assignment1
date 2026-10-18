@@ -12,4 +12,12 @@ const signup = async (req, res) => {
 	res.status(201).json({ status: 'success', data: { user } })
 }
 
-module.exports = { signup }
+
+const login = async (req, res) => {
+	const { token, user } = await authService.login(matchedData(req))
+
+	logger.info(`User logged in: ${user.username}`, { userId: user.id, ip: req.ip })
+	res.status(200).json({ status: 'success', data: { token, user } })
+}
+
+module.exports = { signup, login }
