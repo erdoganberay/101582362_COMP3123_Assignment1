@@ -3,6 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const logger = require('./utils/logger')
 const healthRoutes = require('./routes/health.routes')
+const { notFound, errorHandler } = require('./middleware/errorHandler')
 
 const app = express()
 
@@ -14,5 +15,7 @@ app.use(morgan(':method :url :status :response-time ms', {
 
 // Routes
 app.use('/health', healthRoutes)
+app.use(notFound)
+app.use(errorHandler)
 
 module.exports = app
