@@ -1,9 +1,6 @@
 // Validation rules for /api/v1/emp. Used together with middleware/validate.js.
 const { body, param, query } = require('express-validator')
 
-const EMPLOYEE_FIELDS = [
-	'first_name', 'last_name', 'email', 'position', 'salary', 'date_of_joining', 'department',
-]
 
 // Builds the field rules; on update every field becomes optional
 const employeeFieldRules = (optional) => {
@@ -45,23 +42,18 @@ const employeeFieldRules = (optional) => {
 			.notEmpty().withMessage('Date of joining is required')
 			.isISO8601({ strict: true }).withMessage('Date of joining must be a valid date (YYYY-MM-DD)')
 			.toDate(),
+		body('user')
+			.optional()
+			.custom(() => {
+				throw new Error('The owner of an employee cannot be set by the client')
+			}),	
 
-		// Ownership comes from the JWT only; a client-supplied owner is rejected
-		body('user').not().exists().withMessage('The owner of an employee cannot be set by the client'),
 	]
 }
 
 const createRules = employeeFieldRules(false)
 
-const updateRules = [
-	...employeeFieldRules(true),
-	body().custom((value) => {
-		if (!EMPLOYEE_FIELDS.some((name) => value[name] !== undefined)) {
-			throw new Error('Provide at least one field to update')
-		}
-		return true
-	}),
-]
+const updateRules = employeeFieldRules(true)
 
 const eidParam = [param('eid').isMongoId().withMessage('Invalid employee ID')]
 const eidQuery = [query('eid').isMongoId().withMessage('Invalid employee ID')]

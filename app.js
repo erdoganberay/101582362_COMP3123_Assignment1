@@ -6,6 +6,7 @@ const { apiLimiter } = require('./middleware/rateLimiter')
 const logger = require('./utils/logger')
 const healthRoutes = require('./routes/health.routes')
 const userRoutes = require('./routes/user.routes')
+const employeeRoutes = require('./routes/employee.routes')
 const { notFound, errorHandler } = require('./middleware/errorHandler')
 
 const app = express()
@@ -20,6 +21,7 @@ app.use(morgan(':method :url :status :response-time ms', {
 // Routes
 app.use('/health', healthRoutes)
 app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/emp', employeeRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
