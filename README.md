@@ -118,11 +118,11 @@ Useful commands:
 
 ### Option B: Without Docker
 
-Requires Node.js 20+ and a running MongoDB.
+Requires Node.js 20+ and MongoDB on `localhost:27017`: either a local MongoDB installation, or only the database container with `docker compose up -d mongo`.
 
 ```bash
-git clone <repository-url>
-cd Student#_COMP3123_Assignment1
+git clone https://github.com/erdoganberay/101582362_COMP3123_Assignment1
+cd 101582362_COMP3123_Assignment1
 npm install
 cp .env.example .env          # set JWT_SECRET and MONGODB_URI
 npm run dev                   # or: npm start
