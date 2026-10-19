@@ -20,7 +20,6 @@ A secure RESTful backend API built with **Node.js, Express and MongoDB**. Users 
 10. [Logging](#logging)
 11. [Health check](#health-check)
 12. [Testing](#testing)
-13. [Screenshots](#screenshots)
 
 ---
 
