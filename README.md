@@ -420,24 +420,3 @@ These are non-sensitive test accounts created by the Postman collection:
 | User B | `user_b` | `userb@mail.com` | `Password1` |
 
 ---
-
-## Screenshots
-
-Screenshots are stored in `screenshots/`.
-
-| Evidence | File |
-|---|---|
-| MongoDB database and collections | `screenshots/01-mongodb-collections.png` |
-| Hashed passwords in `users` | `screenshots/02-mongodb-hashed-password.png` |
-| Employee ownership (`user` field) | `screenshots/03-mongodb-employee-owner.png` |
-| Signup (201, 409, 400) | `screenshots/04-signup.png` |
-| Login and JWT | `screenshots/05-login-jwt.png` |
-| Employee CRUD | `screenshots/06-employee-crud.png` |
-| Validation errors | `screenshots/07-validation-errors.png` |
-| Two-user ownership test (403) | `screenshots/08-cross-user-403.png` |
-| JWT errors (401) | `screenshots/09-jwt-errors.png` |
-| Rate limit (429) | `screenshots/10-rate-limit-429.png` |
-| Helmet security headers | `screenshots/11-helmet-headers.png` |
-| Health check | `screenshots/12-health-check.png` |
-| Local logs | `screenshots/13-logs.png` |
-| Postman collection run | `screenshots/14-postman-run.png` |
